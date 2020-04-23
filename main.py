@@ -6,11 +6,13 @@ from bot.handler import HelpCommandHandler, UnknownCommandHandler, MessageHandle
 from bot.bot import Bot
 import covid
 from datetime import date
+from flask import Flask,request
 import json
+import os
 TOKEN = "001.1635373522.2043998669:752127871"
 bot = Bot(token=TOKEN)
 today = str(date.today())
-
+server = Flask(__name__)
 
 def favorites(bot, event):
     bot.send_text(chat_id=event.from_chat, text="Текущая статистика по коронавирусу на " + today, inline_keyboard_markup="{}".format(json.dumps([[
@@ -80,3 +82,5 @@ bot.dispatcher.add_handler(BotButtonCommandHandler(callback=buttons_answer_cb))
 bot.start_polling()
 bot.idle()
 
+if __name__ == "__main__":
+    server.run(host="0.0.0.0",port=int(os.environ.get('PORT',5000)))
