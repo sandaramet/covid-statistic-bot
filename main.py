@@ -6,68 +6,61 @@ from bot.handler import HelpCommandHandler, UnknownCommandHandler, MessageHandle
 from bot.bot import Bot
 import covid
 from datetime import date
-from flask import Flask,request
 import json
 import os
+from functions import dotEveryThreeNumber
 TOKEN = "001.1635373522.2043998669:752127871"
 bot = Bot(token=TOKEN)
 today = str(date.today())
-server = Flask(__name__)
 
+dotEveryThreeNumber(1234567)
 def favorites(bot, event):
     bot.send_text(chat_id=event.from_chat, text="Текущая статистика по коронавирусу на " + today, inline_keyboard_markup="{}".format(json.dumps([[
         {"text": "Во всем мире",
          "callbackData": "allWorld",
          "style": "primary"},
         {"text": "Россия",
-         "callbackData": "russia",
+         "callbackData": "Russia",
          "style": "primary"},
         {"text": "Украина",
-         "callbackData": "ukraine",
+         "callbackData": "Ukraine",
          "style": "primary"},
         {"text": "Беларусь",
-         "callbackData": "belarus",
+         "callbackData": "Belarus",
          "style": "primary"}
     ]])))
+
+
+def callbackData(bot, event):
+    bot.answer_callback_query(
+        query_id=event.data['queryId'],
+        text=covid.location(event.data['callbackData']),
+        show_alert=True
+    )
 
 
 def start_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные про коронавируса напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /countries")
+        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные про коронавируса напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /worldwide")
     favorites(bot, event)
 
 
 def buttons_answer_cb(bot, event):
     if event.data['callbackData'] == "allWorld":
-        bot.answer_callback_query(
-            query_id=event.data['queryId'],
-            text=covid.location("getAllCountries"),
-            show_alert=True
-        )
+        callbackData(bot, event)
+    elif event.data['callbackData'] == "Russia":
 
-    elif event.data['callbackData'] == "russia":
-        bot.answer_callback_query(
-            query_id=event.data['queryId'],
-            text=covid.location("russia"),
-            show_alert=True
-        )
-    elif event.data['callbackData'] == "ukraine":
-        bot.answer_callback_query(
-            query_id=event.data['queryId'],
-            text=covid.location("ukraine"),
-            show_alert=True
-        )
-    elif event.data['callbackData'] == "belarus":
-        bot.answer_callback_query(
-            query_id=event.data['queryId'],
-            text=covid.location("belarus"),
-            show_alert=True
-        )
+        callbackData(bot, event)
+    elif event.data['callbackData'] == "Ukraine":
+
+        callbackData(bot, event)
+    elif event.data['callbackData'] == "Belarus":
+        callbackData(bot, event)
 
 
 def message_cb(bot, event):
-    if (event.text == "/countries"):
+    if (event.text == "/worldwide"):
         bot.send_text(chat_id=event.from_chat, text=covid.getAllCountries())
         favorites(bot, event)
     elif (event.text == "/favorites"):
@@ -81,6 +74,3 @@ bot.dispatcher.add_handler(MessageHandler(callback=message_cb))
 bot.dispatcher.add_handler(BotButtonCommandHandler(callback=buttons_answer_cb))
 bot.start_polling()
 bot.idle()
-
-if __name__ == "__main__":
-    server.run(host="0.0.0.0",port=int(os.environ.get('PORT',5000)))
