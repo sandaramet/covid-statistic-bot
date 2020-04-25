@@ -27,7 +27,8 @@ def getAllStatistic(data):
     confirmed = dotEveryThreeNumber(str(data['confirmed']))
     deaths = dotEveryThreeNumber(str(data['deaths']))
     recovered = dotEveryThreeNumber(str(data['recovered']))
-    text = "Данные по всему миру: \nЗаболевших: {} \nСметрей: {} \nВыздоровел: {}".format(confirmed, deaths, recovered)
+    text = "Данные по всему миру: \nЗаболевших: {} \nСметрей: {} \nВыздоровел: {}".format(
+        confirmed, deaths, recovered)
     return text
 
 
@@ -42,3 +43,10 @@ def dotEveryThreeNumber(number):
         i -= 1
     number = "".join(splitNumber)
     return number
+
+
+def bubble_sort1(A):
+    for i in range(0, len(A) - 1):
+        for j in range(0, len(A) - i - 1):
+            if A[j] > A[j+1]:
+                A[j], A[j+1] = A[j+1], A[j]

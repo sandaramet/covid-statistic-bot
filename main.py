@@ -1,5 +1,4 @@
 
-
 from bot.handler import HelpCommandHandler, UnknownCommandHandler, MessageHandler, FeedbackCommandHandler, \
     CommandHandler, NewChatMembersHandler, LeftChatMembersHandler, PinnedMessageHandler, UnPinnedMessageHandler, \
     EditedMessageHandler, DeletedMessageHandler, StartCommandHandler, BotButtonCommandHandler
@@ -13,7 +12,6 @@ TOKEN = "001.1635373522.2043998669:752127871"
 bot = Bot(token=TOKEN)
 today = str(date.today())
 
-dotEveryThreeNumber(1234567)
 def favorites(bot, event):
     bot.send_text(chat_id=event.from_chat, text="Текущая статистика по коронавирусу на " + today, inline_keyboard_markup="{}".format(json.dumps([[
         {"text": "Во всем мире",
@@ -50,10 +48,8 @@ def buttons_answer_cb(bot, event):
     if event.data['callbackData'] == "allWorld":
         callbackData(bot, event)
     elif event.data['callbackData'] == "Russia":
-
         callbackData(bot, event)
     elif event.data['callbackData'] == "Ukraine":
-
         callbackData(bot, event)
     elif event.data['callbackData'] == "Belarus":
         callbackData(bot, event)
