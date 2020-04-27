@@ -20,7 +20,7 @@ def getAllCountries():
         text += str(data['country']) + space + "😷" + dotEveryThreeNumber(str(data['confirmed'])) + space + "💀" + \
             dotEveryThreeNumber(str(data['deaths'])) + space + "👍" + \
             dotEveryThreeNumber(str(data['recovered'])) + "\n\n"
-    text += "\nСтрана  😷 Заболевших  💀 Сметрей   👍 Выздоровел  "
+    text += "\nСтрана  😷 Заболевших  💀 Смертей   👍 Выздоровевших  "
     return text
 
 
@@ -34,5 +34,5 @@ def getTopNumber(word):
         text += str(data['country']) + space + "😷" + dotEveryThreeNumber(str(data['confirmed'])) + space + "💀" + \
             dotEveryThreeNumber(str(data['deaths'])) + space + "👍" + \
             dotEveryThreeNumber(str(data['recovered'])) + "\n\n"
-    text += "\nСтрана  😷 Заболевших  💀 Сметрей   👍 Выздоровел  "
+    text += "\nСтрана  😷 Заболевших  💀 Смертей   👍 Выздоровевших:  "
     return text

@@ -41,7 +41,7 @@ def callbackData(bot, event):
 def start_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные про коронавируса напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /worldwide\nЕсли вы хотите увидеть топ, напишите top- и номер: например top-10")
+        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные по коронавирусу напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /worldwide\nЕсли вы хотите увидеть топ, напишите top- и номер: например top-10")
     favorites(bot, event)
 
 
@@ -67,10 +67,9 @@ def message_cb(bot, event):
     elif (event.text != "/start"):
         bot.send_text(chat_id=event.from_chat, text=covid.location(event.text))
     elif (event.text == "/start"):
-        data = event.data['from'] 
+        data = event.data['from']
         with open('users.txt', 'a') as outfile:
-             json.dump( data, outfile)
-   
+            json.dump(data, outfile)
 
 
 bot.dispatcher.add_handler(StartCommandHandler(callback=start_cb))

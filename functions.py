@@ -18,7 +18,7 @@ def getCountryStatistic(country):
     confirmed = dotEveryThreeNumber(str(country['confirmed']))
     deaths = dotEveryThreeNumber(str(country['deaths']))
     recovered = dotEveryThreeNumber(str(country['recovered']))
-    text = "Страна: {} \nЗаболевших: {} \nСметрей: {} \nВыздоровел: {}".format(name,
+    text = "Страна: {} \nЗаболевших: {} \nСмертей: {} \Выздоровевших:: {}".format(name,
                                                                                confirmed, deaths, recovered)
     return text
 
@@ -27,7 +27,7 @@ def getAllStatistic(data):
     confirmed = dotEveryThreeNumber(str(data['confirmed']))
     deaths = dotEveryThreeNumber(str(data['deaths']))
     recovered = dotEveryThreeNumber(str(data['recovered']))
-    text = "Данные по всему миру: \nЗаболевших: {} \nСметрей: {} \nВыздоровел: {}".format(
+    text = "Данные по всему миру: \nЗаболевших: {} \nСмертей: {} \Выздоровевших:: {}".format(
         confirmed, deaths, recovered)
     return text
 
