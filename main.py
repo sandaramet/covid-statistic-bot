@@ -15,16 +15,16 @@ today = str(date.today())
 
 def favorites(bot, event):
     bot.send_text(chat_id=event.from_chat, text="Текущая статистика по коронавирусу на " + today, inline_keyboard_markup="{}".format(json.dumps([[
-        {"text": "Во всем мире",
+        {"text": "🌏",
          "callbackData": "allWorld",
          "style": "primary"},
-        {"text": "Россия",
+        {"text": "🇷🇺",
          "callbackData": "Russia",
          "style": "primary"},
-        {"text": "Украина",
+        {"text": "🇺🇦",
          "callbackData": "Ukraine",
          "style": "primary"},
-        {"text": "Беларусь",
+        {"text": "🇧🇾",
          "callbackData": "Belarus",
          "style": "primary"}
     ]])))
