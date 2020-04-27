@@ -59,19 +59,18 @@ def buttons_answer_cb(bot, event):
 def message_cb(bot, event):
     if (event.text == "/worldwide"):
         bot.send_text(chat_id=event.from_chat, text=covid.getAllCountries())
-        
+        favorites(bot,  event)
     elif (haveWord(event.text, "top")):
-
+        favorites(bot,  event)
         bot.send_text(chat_id=event.from_chat,
                       text=covid.getTopNumber(event.text))
     elif (event.text != "/start"):
         bot.send_text(chat_id=event.from_chat, text=covid.location(event.text))
     elif (event.text == "/start"):
         data = event.data['from'] 
-        print( )
         with open('users.txt', 'a') as outfile:
              json.dump( data, outfile)
-    favorites(bot,  event)
+   
 
 
 bot.dispatcher.add_handler(StartCommandHandler(callback=start_cb))
