@@ -7,10 +7,11 @@ import covid
 from datetime import date
 import json
 import os
-from functions import dotEveryThreeNumber
+from functions import dotEveryThreeNumber, haveWord
 TOKEN = "001.1635373522.2043998669:752127871"
 bot = Bot(token=TOKEN)
 today = str(date.today())
+
 
 def favorites(bot, event):
     bot.send_text(chat_id=event.from_chat, text="Текущая статистика по коронавирусу на " + today, inline_keyboard_markup="{}".format(json.dumps([[
@@ -40,7 +41,7 @@ def callbackData(bot, event):
 def start_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные про коронавируса напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /worldwide")
+        text="Привет " + event.data['from']['firstName'] + "! Чтобы узнать данные про коронавируса напишите название страны, например: America, Belarus, Russia и так далее․ \nЕсли вы хотите увидеть список стран, напишите /worldwide\nЕсли вы хотите увидеть топ, напишите top- и номер: например top-10")
     favorites(bot, event)
 
 
@@ -58,11 +59,19 @@ def buttons_answer_cb(bot, event):
 def message_cb(bot, event):
     if (event.text == "/worldwide"):
         bot.send_text(chat_id=event.from_chat, text=covid.getAllCountries())
-        favorites(bot, event)
-    elif (event.text == "/favorites"):
-        favorites(bot, event)
+        
+    elif (haveWord(event.text, "top")):
+
+        bot.send_text(chat_id=event.from_chat,
+                      text=covid.getTopNumber(event.text))
     elif (event.text != "/start"):
         bot.send_text(chat_id=event.from_chat, text=covid.location(event.text))
+    elif (event.text == "/start"):
+        data = event.data['from'] 
+        print( )
+        with open('users.txt', 'a') as outfile:
+             json.dump( data, outfile)
+    favorites(bot,  event)
 
 
 bot.dispatcher.add_handler(StartCommandHandler(callback=start_cb))

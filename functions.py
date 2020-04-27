@@ -50,3 +50,25 @@ def bubble_sort1(A):
         for j in range(0, len(A) - i - 1):
             if A[j] > A[j+1]:
                 A[j], A[j+1] = A[j+1], A[j]
+
+
+def sortData(data):
+
+    for i in range(len(data) - 1, 0, -1):
+        for j in range(i):
+            if data[j]['confirmed'] > data[j+1]['confirmed']:
+                temp = data[j]
+                data[j] = data[j+1]
+                data[j+1] = temp
+    return data
+
+
+def haveWord(eventText, word):
+    eventText = eventText.split("-")[0]
+    if(eventText == word):
+        return True
+    else:
+        return False
+
+
+
