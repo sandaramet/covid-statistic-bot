@@ -8,7 +8,7 @@ from datetime import date
 import json
 import os
 from functions import dotEveryThreeNumber, haveWord
-TOKEN = "001.1635373522.2043998669:752127871"
+TOKEN = ""
 bot = Bot(token=TOKEN)
 today = str(date.today())
 
